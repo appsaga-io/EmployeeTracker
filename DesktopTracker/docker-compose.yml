@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  desktop-tracker:
+    build: .
+    container_name: employee-tracker-desktop
+    environment:
+      - API_BASE_URL=http://host.docker.internal:8080/api
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./config:/app/config
+      - ./logs:/app/logs
+    network_mode: host
+    stdin_open: true
+    tty: true
+    command: python src/main.py
+
